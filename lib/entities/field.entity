@@ -1,0 +1,30 @@
+Field:
+  Description: A single data variable associated with an entity
+  Fields:
+    Description:
+      Description: A plain-language description of the variable
+
+    Multiple?:
+      Description: Whether or not this variable can occur multiple times
+
+    Type:
+      Description: Type of data contained in this field (defaults to String)
+
+    Validations:
+      Description: Restrictions on the values allowed in this field
+      Multiple: True
+      Valid Values:
+        - Must be positive
+        - Must be non-negative
+
+    Valid Values:
+      Description: List of possible literal values for this field
+      Multiple: True
+
+    Minimum Value:
+      Description: Minimum value allowed for this field (numeric fields only)
+      Type: Numeric
+
+    Maximum Value:
+      Description: Maximum value allowed for this field (numeric fields only)
+      Type: Numeric

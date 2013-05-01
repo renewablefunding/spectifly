@@ -1,0 +1,23 @@
+Individual:
+  Description: An Individual
+  Fields:
+    Name*:
+      Description: The individual's name
+      Example: Randy McTougherson
+
+    Age:
+      Type: Integer
+      Validations: Must be non-negative
+
+    Happiness:
+      Type: Percent
+      Minimum Value: 0
+      Maximum Value: 100
+
+    Positions:
+      Description: Which positions individual occupies in a group
+      Multiple: True
+      Valid Values:
+        - Lotus
+        - Pole
+        - Third

@@ -1,0 +1,28 @@
+{
+  "individual": {
+    "name": {
+      "type": "string",
+      "multiple": false,
+      "required": true,
+      "description": "The individual's name",
+      "example": "Wussy O'Weakling"
+    },
+    "age": {
+      "type": "integer",
+      "multiple": false,
+      "required": false,
+      "validations": [
+        "Must be non-negative"
+      ]
+    },
+    "joy": {
+      "type": "percent",
+      "multiple": false,
+      "required": false,
+      "restrictions": {
+        "minimum_value": 0,
+        "maximum_value": 100
+      }
+    }
+  }
+}

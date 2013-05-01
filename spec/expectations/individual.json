@@ -1,0 +1,41 @@
+{
+  "individual": {
+    "name": {
+      "type": "string",
+      "multiple": false,
+      "required": true,
+      "description": "The individual's name",
+      "example": "Randy McTougherson"
+    },
+    "age": {
+      "type": "integer",
+      "multiple": false,
+      "required": false,
+      "validations": [
+        "Must be non-negative"
+      ]
+    },
+    "happiness": {
+      "type": "percent",
+      "multiple": false,
+      "required": false,
+      "restrictions": {
+        "minimum_value": 0,
+        "maximum_value": 100
+      }
+    },
+    "positions": {
+      "type": "string",
+      "multiple": true,
+      "required": false,
+      "description": "Which positions individual occupies in a group",
+      "restrictions": {
+        "valid_values": [
+          "Lotus",
+          "Pole",
+          "Third"
+        ]
+      }
+    }
+  }
+}

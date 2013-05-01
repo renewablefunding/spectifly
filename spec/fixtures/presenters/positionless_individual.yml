@@ -1,0 +1,8 @@
+Individual:
+  Description: A Positionless Individual
+  Fields:
+    Name*:
+      Example: Wussy O'Weakling
+    Age:
+    Joy:
+      Inherits From: Happiness

@@ -1,0 +1,10 @@
+Entity:
+  Description: A Spectifly entity definition
+  Fields:
+    Description:
+      Description: A plain-language description of the entity
+
+    Fields*:
+      Description: Data variables associated with the given entity
+      Type: Field
+      Multiple: True
