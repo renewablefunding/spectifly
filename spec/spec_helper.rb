@@ -15,8 +15,8 @@ end
 
 def fixture_path(fixture = nil)
   return base_fixture_path unless fixture
-  fixture.gsub!(/\.yml$/, '')
-  File.join(base_fixture_path, "#{fixture}.yml")
+  fixture.gsub!(/\.entity$/, '')
+  File.join(base_fixture_path, "#{fixture}.entity")
 end
 
 def expectation_path(expectation = nil, format = nil)
