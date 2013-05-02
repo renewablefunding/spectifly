@@ -32,11 +32,11 @@ module Spectifly
           custom_types.each do |cust|
             xml.xs :include, 'schemaLocation' => "#{cust}.xsd"
           end
+          unless utilized_extended_types.empty?
+            xml.xs :include, 'schemaLocation' => "extended.xsd"
+          end
           xml.xs :element, :name => Spectifly::Support.camelize(root), :type => root_type
           build_type(xml)
-          utilized_extended_type_fields.each do |field|
-            field.type_block(true).call(xml)
-          end
         end
       end
     end

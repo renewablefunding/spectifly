@@ -1,4 +1,5 @@
 require_relative '../lib/spectifly'
+require_relative '../lib/spectifly/xsd'
 
 def spec_path
   File.dirname(__FILE__)
