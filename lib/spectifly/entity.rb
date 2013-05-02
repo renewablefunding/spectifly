@@ -17,6 +17,12 @@ module Spectifly
       @fields = @metadata.delete('Fields')
     end
 
+    def attributes_for_field_by_base_name(base_name)
+      @fields.select { |name, attributes|
+        name.gsub(/\W+$/, '') == base_name
+      }.values.first
+    end
+
     def present_as(presenter_entity)
       unless @root == presenter_entity.root
         raise ArgumentError, "Presenter entity has different root"
@@ -24,8 +30,9 @@ module Spectifly
       merged_fields = {}
       presenter_entity.fields.each_pair do |name, attributes|
         attributes ||= {}
-        parent_field = @fields[attributes['Inherits From'] || name]
-        merged_fields[name] = (parent_field || {}).merge(attributes)
+        inherit_from = attributes['Inherits From'] || name.gsub(/\W+$/, '')
+        parent_attrs = attributes_for_field_by_base_name(inherit_from)
+        merged_fields[name] = (parent_attrs || {}).merge(attributes)
       end
 
       merged_entity = self.class.parse(path, options)

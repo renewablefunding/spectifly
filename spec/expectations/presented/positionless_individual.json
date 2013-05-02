@@ -23,6 +23,12 @@
         "minimum_value": 0,
         "maximum_value": 100
       }
+    },
+    "pickled": {
+      "type": "boolean",
+      "multiple": false,
+      "required": false,
+      "description": "Whether or not this individual is pickled"
     }
   }
 }

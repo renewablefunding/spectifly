@@ -43,6 +43,9 @@ describe Spectifly::Entity do
             'Pole',
             'Third'
           ]
+        },
+        "Pickled?*" => {
+          "Description" => "Whether or not this individual is pickled"
         }
       }
     end
@@ -76,6 +79,9 @@ describe Spectifly::Entity do
           "Minimum Value" => 0,
           "Maximum Value" => 100,
           "Inherits From" => "Happiness"
+        },
+        "Pickled?" => {
+          "Description" => "Whether or not this individual is pickled"
         }
       }
       @merged_entity.metadata.should == {

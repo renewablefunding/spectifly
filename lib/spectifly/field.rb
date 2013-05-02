@@ -5,7 +5,7 @@ module Spectifly
 
     def initialize(field_name, options = {})
       @field_name = field_name
-      @tokens = @field_name.match(/\W+$/).to_a
+      @tokens = @field_name.match(/(\W+)$/).to_s.scan(/./)
       @attributes = options
       extract_attributes
       extract_restrictions
@@ -59,7 +59,7 @@ module Spectifly
     end
 
     def required?
-      @tokens.include? '*' || @required
+      @tokens.include? '*'
     end
 
     def to_h

@@ -21,3 +21,6 @@ Individual:
         - Lotus
         - Pole
         - Third
+
+    Pickled?*:
+      Description: Whether or not this individual is pickled

@@ -36,6 +36,12 @@
           "Third"
         ]
       }
+    },
+    "pickled": {
+      "type": "boolean",
+      "multiple": false,
+      "required": true,
+      "description": "Whether or not this individual is pickled"
     }
   }
 }
