@@ -9,7 +9,8 @@ module Spectifly
         'integer',
         'non_negative_integer',
         'positive_integer',
-        'decimal'
+        'decimal',
+        'base64_binary'
       ]
 
       Extended = Spectifly::Types::Extended
