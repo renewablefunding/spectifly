@@ -28,3 +28,8 @@ Field:
     Maximum Value:
       Description: Maximum value allowed for this field (numeric fields only)
       Type: Numeric
+
+  Related Entities:
+    Belongs To:
+      Entity*:
+        Type: Entity

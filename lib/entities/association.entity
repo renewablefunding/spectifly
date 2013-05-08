@@ -1,0 +1,11 @@
+Association:
+  Description: The way in which an entity relates to another entity
+  Related Entities:
+    Has Many:
+      Entities:
+        Type: Entity
+        Description: The entity to which the given entity relates
+
+    Belongs To:
+      Related Entity*:
+        Description: The list of associations to entities that a given entity has

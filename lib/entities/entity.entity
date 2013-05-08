@@ -4,7 +4,13 @@ Entity:
     Description:
       Description: A plain-language description of the entity
 
-    Fields*:
-      Description: Data variables associated with the given entity
-      Type: Field
-      Multiple: True
+  Related Entities:
+    Has Many:
+      Fields*:
+        Description: Data variables associated with the given entity
+        Type: Field
+
+    Has One:
+      Related Entities:
+        Description: Entities associated with the given entity
+        Type: Related Entity

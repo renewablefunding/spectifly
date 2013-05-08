@@ -1,0 +1,28 @@
+Related Entity:
+  Description: Entities associated with the base entity
+  Related Entities:
+    Has One:
+      Belongs To:
+        Description: Entities that own one of the given entity.
+        Type: Association
+        Example: A comment belongs to a blog post
+
+      Has One:
+        Description: Entities that are owned by the given entity.  Given entity has one of these entities.
+        Type: Association
+        Example: A building has one address
+
+      Has Many:
+        Description: Entities that are owned by the given entity.  Given entity can have multiple of these entities.
+        Type: Association
+        Example: A book has many pages
+
+      Belongs To Many:
+        Description: Entities that own multiple of a given entitiy.
+        Type: Association
+        Example: a Street belongs to many addresses
+
+      Has and Belongs To Many:
+        Description: Entities that are associated with other entities.  Each given entity can have multiple of this entity and can also  belong to many of this entity.
+        Type: Association
+        Example: a Library user can borrow many books and a book can be borrowed by many library users
