@@ -1,9 +1,8 @@
-require_relative '../field'
 require_relative 'types'
 
 module Spectifly
   module Xsd
-    class Field < Spectifly::Field
+    class Field < Spectifly::Base::Field
       def name
         Spectifly::Support.camelize(@field_name).gsub(/\W/, '')
       end

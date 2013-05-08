@@ -1,5 +1,6 @@
 require_relative '../lib/spectifly'
 require_relative '../lib/spectifly/xsd'
+require_relative '../lib/spectifly/json'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

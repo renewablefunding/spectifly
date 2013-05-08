@@ -1,0 +1,8 @@
+Some Object:
+  Description: Tigers are frivolous
+  Fields:
+    Awesome Field:
+Some Other Object:
+  Description: This won't work!
+  Fields:
+    Less Awesome Field:

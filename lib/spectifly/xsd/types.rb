@@ -13,7 +13,7 @@ module Spectifly
         'base64_binary'
       ]
 
-      Extended = Spectifly::Types::Extended
+      Extended = Spectifly::Base::Types::Extended
 
       class << self
         def build_extended(xml = nil)

@@ -1,15 +1,10 @@
 require 'builder'
-require_relative '../builder'
 require_relative 'field'
 require_relative 'types'
 
 module Spectifly
   module Xsd
-    class Builder < Spectifly::Builder
-      def field_class
-        Spectifly::Xsd::Field
-      end
-
+    class Builder < Spectifly::Base::Builder
       def root_type
         Spectifly::Support.lower_camelize("#{root}Type")
       end
