@@ -7,3 +7,6 @@ Individual:
     Joy:
       Inherits From: Happiness
     Pickled?:
+  Related Entities:
+    Belongs To:
+      Party*:

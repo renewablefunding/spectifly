@@ -17,9 +17,9 @@ describe Spectifly::Entity do
       entities = Spectifly::Entity.from_directory(
         fixture_path, :presenter_path => base_presenter_path
       )
-      entities.keys.should =~ ['individual', 'group', 'positionless_individual']
+      entities.keys.should =~ ['individual', 'group', 'positionless_individual', 'masterless_group']
       entities.values.map(&:class).uniq.should == [Spectifly::Entity]
-      entities.values.map(&:name).should =~ ['individual', 'group', 'positionless_individual']
+      entities.values.map(&:name).should =~ ['individual', 'group', 'positionless_individual', 'masterless_group']
     end
   end
 
@@ -99,7 +99,8 @@ describe Spectifly::Entity do
       @entity.fields.should == {
         "Name*" => {
           "Description" => "The individual's name",
-          "Example" => "Randy McTougherson"
+          "Example" => "Randy McTougherson",
+          "Unique" => true
         },
         "Age" => {
           "Type" => "Integer",
@@ -143,7 +144,8 @@ describe Spectifly::Entity do
       @merged_entity.fields.should == {
         "Name*" => {
           "Description" => "The individual's name",
-          "Example" => "Wussy O'Weakling"
+          "Example" => "Wussy O'Weakling",
+          "Unique" => true
         },
         "Age" => {
           "Type" => "Integer",
@@ -161,6 +163,26 @@ describe Spectifly::Entity do
       }
       @merged_entity.metadata.should == {
         "Description" => "A Positionless Individual"
+      }
+    end
+  end
+
+  describe '#relationships' do
+    it 'returns relationships from parsed yaml' do
+      @group_entity = Spectifly::Entity.parse(fixture_path('group'))
+      @group_entity.relationships.should == {
+        "Has Many" => {
+          "Peeps" => {
+            "Description" => "Who is in the group",
+            "Type" => "Individual"
+          }
+        },
+        "Has One" => {
+          "Master*" => {
+            "Description" => "Who is the master of the group",
+            "Type" => "Individual"
+          }
+        }
       }
     end
   end

@@ -1,0 +1,30 @@
+{
+  "group": {
+    "has_many": {
+      "peeps": {
+        "type": "individual",
+        "required": false,
+        "description": "Who is in the group"
+      }
+    },
+    "group_id": {
+      "type": "string",
+      "multiple": false,
+      "required": false,
+      "description": "Identifier used to register group for scams",
+      "restrictions": {
+        "unique": true,
+        "regex": "^[0-9]{2}(-?[0-9]{5})$"
+      }
+    },
+    "name": {
+      "type": "string",
+      "multiple": false,
+      "required": true,
+      "description": "The name of this group",
+      "restrictions": {
+        "regex": "group"
+      }
+    }
+  }
+}

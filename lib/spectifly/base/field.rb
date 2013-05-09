@@ -1,31 +1,18 @@
+require_relative 'entity_node'
+
 module Spectifly
   module Base
-    class Field
-      attr_accessor :name, :attributes, :description, :example, :validations,
-        :restrictions, :inherits_from
-
-      def initialize(field_name, options = {})
-        @field_name = field_name
-        @tokens = @field_name.match(/(\W+)$/).to_s.scan(/./)
-        @attributes = options
-        extract_attributes
-        extract_restrictions
-      end
-
+    class Field < EntityNode
       def extract_attributes
-        @description = @attributes.delete('Description')
-        @example = @attributes.delete('Example')
+        super
         @multiple = @attributes.delete('Multiple') == true
-        @type = @attributes.delete('Type')
-        @inherits_from = @attributes.delete('Inherits From')
         if @tokens.include?('?') && @type && @type != 'Boolean'
           raise ArgumentError, "Boolean field has conflicting type"
         end
-        @validations = [@attributes.delete('Validations')].compact.flatten
       end
 
       def extract_restrictions
-        @restrictions = {}
+        super
         ['Minimum Value', 'Maximum Value', 'Valid Values'].each do |restriction|
           if @attributes[restriction]
             token = Spectifly::Support.tokenize(restriction)
@@ -41,26 +28,14 @@ module Spectifly
         @restrictions
       end
 
-      def name
-        Spectifly::Support.tokenize(@field_name).gsub(/\W/, '')
-      end
-
       def type
-        type = @type
+        type = super
         type = 'boolean' if @tokens.include?('?')
-        Spectifly::Support.tokenize(type || 'string')
-      end
-
-      def display_type
-        type
+        type || 'string'
       end
 
       def multiple?
         @multiple
-      end
-
-      def required?
-        @tokens.include? '*'
       end
     end
   end

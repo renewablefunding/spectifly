@@ -1,5 +1,6 @@
 require 'yaml'
 require_relative 'field'
+require_relative 'association'
 require_relative 'types'
 
 module Spectifly
@@ -26,7 +27,7 @@ module Spectifly
       end
 
       def types
-        fields.map(&:type).compact.uniq
+        [fields.map(&:type) + associations.map(&:type)].flatten.compact.uniq
       end
 
       def native_types
@@ -49,17 +50,32 @@ module Spectifly
       def fields
         @fields ||= begin
           fields = []
-          @entity.fields.each_pair do |name, attributes|
+          @entity.fields.each do |name, attributes|
             fields << field_class.new(name.dup, attributes.dup)
           end
           fields
         end
       end
 
+      def associations
+        @associations ||= begin
+          associations = []
+          @entity.relationships.each do |relationship_type, type_associations|
+            relationship_type = Spectifly::Support.tokenize(relationship_type)
+            type_associations.each do |name, attributes|
+              associations << association_class.new(
+                name.dup, attributes.dup.merge(:relationship => relationship_type)
+              )
+            end
+          end
+          associations
+        end
+      end
+
       def utilized_extended_type_fields
         @utilized_extended_type_fields ||= begin
           fields = []
-          utilized_extended_types.each_pair do |name, attributes|
+          utilized_extended_types.each do |name, attributes|
             fields << field_class.new(name.dup, attributes.dup)
           end
           fields
@@ -72,6 +88,10 @@ module Spectifly
 
       def field_class
         eval("#{self.class.module_name}::Field")
+      end
+
+      def association_class
+        eval("#{self.class.module_name}::Association")
       end
 
       def build

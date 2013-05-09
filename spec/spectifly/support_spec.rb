@@ -27,6 +27,10 @@ describe Spectifly::Support do
     it 'uncamelizes' do
       Spectifly::Support.tokenize('thisStrangeJavalikeWord').should == 'this_strange_javalike_word'
     end
+
+    it 'returns nil if given nil' do
+      Spectifly::Support.tokenize(nil).should be_nil
+    end
   end
 
   describe '.get_module' do

@@ -37,5 +37,15 @@ describe Spectifly::Xsd::Builder do
       xsd = builder.build
       xsd.should == File.read(xsd_path)
     end
+
+    it 'works with presented relationship-having entities' do
+      entity = Spectifly::Entity.parse(fixture_path('group'))
+      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/masterless_group'))
+      xsd_path = expectation_path('presented/masterless_group', 'xsd')
+      builder = Spectifly::Xsd::Builder.new(entity)
+      builder.present_as(presenter_entity).should == builder
+      xsd = builder.build
+      xsd.should == File.read(xsd_path)
+    end
   end
 end

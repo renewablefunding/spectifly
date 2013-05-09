@@ -1,0 +1,8 @@
+Group:
+  Description: A load of peoples
+  Fields:
+    Group ID:
+    Name*:
+  Related Entities:
+    Has Many:
+      Peeps:

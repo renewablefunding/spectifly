@@ -29,11 +29,6 @@
           <xs:documentation>Who is in the group</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Master" type="individualType">
-        <xs:annotation>
-          <xs:documentation>Who is the master of the group</xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

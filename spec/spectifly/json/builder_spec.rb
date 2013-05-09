@@ -9,6 +9,13 @@ describe Spectifly::Json::Builder do
       hash = described_class.new(entity).build
       JSON.pretty_generate(hash).should == File.read(json_path)
     end
+
+    it 'works with containing relationships' do
+      entity = Spectifly::Entity.parse(fixture_path('group'))
+      json_path = expectation_path('group', 'json')
+      hash = described_class.new(entity).build
+      JSON.pretty_generate(hash).should == File.read(json_path)
+    end
   end
 
   describe '#present_as' do
@@ -16,6 +23,16 @@ describe Spectifly::Json::Builder do
       entity = Spectifly::Entity.parse(fixture_path('individual'))
       presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual'))
       json_path = expectation_path('presented/positionless_individual', 'json')
+      builder = described_class.new(entity)
+      builder.present_as(presenter_entity).should == builder
+      hash = builder.build
+      JSON.pretty_generate(hash).should == File.read(json_path)
+    end
+
+    it 'works with overriding relationships' do
+      entity = Spectifly::Entity.parse(fixture_path('group'))
+      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/masterless_group'))
+      json_path = expectation_path('presented/masterless_group', 'json')
       builder = described_class.new(entity)
       builder.present_as(presenter_entity).should == builder
       hash = builder.build

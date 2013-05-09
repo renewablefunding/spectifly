@@ -16,6 +16,7 @@ module Spectifly
     end
 
     def tokenize(string)
+      return nil if string.nil?
       string = string.gsub(/&/, ' and ').
         gsub(/[ \/]+/, '_').
         gsub(/([a-z\d])([A-Z])/,'\1_\2').

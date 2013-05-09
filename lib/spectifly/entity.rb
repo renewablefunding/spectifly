@@ -3,7 +3,7 @@ module Spectifly
     class Invalid < StandardError; end
 
     attr_reader :root, :path, :options, :name, :presented_as
-    attr_accessor :metadata, :fields
+    attr_accessor :metadata, :fields, :relationships
 
     class << self
       def parse(*args)
@@ -41,6 +41,7 @@ module Spectifly
       @root = @parsed_yaml.keys.first
       @metadata = @parsed_yaml.values.first
       @fields = @metadata.delete('Fields')
+      @relationships = @metadata.delete('Related Entities') || {}
       if @presented_as = options[:presenter]
         @path = @presented_as.path
         @name = @presented_as.name
@@ -63,11 +64,18 @@ module Spectifly
       }.values.first
     end
 
+    def attributes_for_relationship_by_base_name(type, base_name)
+      @relationships[type].select { |name, attributes|
+        name.gsub(/\W+$/, '') == base_name
+      }.values.first
+    end
+
     def present_as(presenter_entity)
       unless @root == presenter_entity.root
         raise ArgumentError, "Presenter entity has different root"
       end
       merged_fields = {}
+      merged_relationships = {}
       presenter_entity.fields.each_pair do |name, attributes|
         attributes ||= {}
         inherit_from = attributes['Inherits From'] || name.gsub(/\W+$/, '')
@@ -75,9 +83,21 @@ module Spectifly
         merged_fields[name] = (parent_attrs || {}).merge(attributes)
       end
 
+      if presenter_entity.relationships
+        presenter_entity.relationships.each_pair do |type, relationships|
+          relationships.each do |name, attributes|
+            attributes ||= {}
+            inherit_from = attributes['Inherits From'] || name.gsub(/\W+$/, '')
+            parent_attrs = attributes_for_relationship_by_base_name(type, inherit_from)
+            (merged_relationships[type] ||= {})[name] = (parent_attrs || {}).merge(attributes)
+          end
+        end
+      end
+
       merged_entity = self.class.parse(
         path, options.merge(:presenter => presenter_entity)
       )
+      merged_entity.relationships = merged_relationships
       merged_entity.fields = merged_fields
       merged_entity.metadata.merge!(presenter_entity.metadata)
       merged_entity

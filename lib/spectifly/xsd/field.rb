@@ -3,6 +3,12 @@ require_relative 'types'
 module Spectifly
   module Xsd
     class Field < Spectifly::Base::Field
+      def extract_restrictions
+        super
+        @restrictions.delete('unique')
+        @restrictions
+      end
+
       def name
         Spectifly::Support.camelize(@field_name).gsub(/\W/, '')
       end

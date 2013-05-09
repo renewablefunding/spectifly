@@ -1,19 +1,23 @@
 Group:
   Description: A load of peoples
   Fields:
-    Peeps:
-      Description: Who is in the group
-      Type: Individual
-      Multiple: True
-
-    Master*:
-      Description: Who is the master of the group
-      Type: Individual
-
     Group ID:
       Description: Identifier used to register group for scams
-      Validations: Must match regex "^[0-9]{2}(-?[0-9]{5})$"
+      Validations:
+        - Must match regex "^[0-9]{2}(-?[0-9]{5})$"
+        - Must be unique
 
     Name*:
       Description: The name of this group
       Validations: Must match regex "group"
+
+  Related Entities:
+    Has Many:
+      Peeps:
+        Description: Who is in the group
+        Type: Individual
+
+    Has One:
+      Master*:
+        Description: Who is the master of the group
+        Type: Individual

@@ -15,6 +15,14 @@ module Spectifly
         end
         { name.to_sym => fields}
       end
+
+      def restrictions
+        @restrictions.inject({}) do |result, (type, value)|
+          value = value.source if type == 'regex'
+          result[type] = value
+          result
+        end
+      end
     end
   end
 end

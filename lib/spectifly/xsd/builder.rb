@@ -1,5 +1,6 @@
 require 'builder'
 require_relative 'field'
+require_relative 'association'
 require_relative 'types'
 
 module Spectifly
@@ -15,6 +16,9 @@ module Spectifly
           xml.xs :sequence do
             fields.each do |field|
               field.to_xsd(xml)
+            end
+            associations.each do |association|
+              association.to_xsd(xml)
             end
           end
         end

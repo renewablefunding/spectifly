@@ -4,6 +4,7 @@ Individual:
     Name*:
       Description: The individual's name
       Example: Randy McTougherson
+      Unique: True
 
     Age:
       Type: Integer
@@ -24,3 +25,9 @@ Individual:
 
     Pickled?*:
       Description: Whether or not this individual is pickled
+
+  Related Entities:
+    Belongs To:
+      Party*:
+        Description: Which funtime party this individual happy with is
+        Type: Group
