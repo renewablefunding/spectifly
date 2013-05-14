@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require_relative '../lib/spectifly'
 require_relative '../lib/spectifly/xsd'
 require_relative '../lib/spectifly/json'
