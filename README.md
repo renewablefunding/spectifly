@@ -48,13 +48,23 @@ Widget:
 
     Awesome?:
       Description: Whether or not the widget is awesome
+  Related Entities:
+    Belongs To:
+      Manufacturing Plant*:
+        Description: The WidgetCo location that constructed the widget
+        Type: Manufacturing Location
+    Has Many:
+      Accessories:
+        Description: Widget Add-ons that augment the widget's
+functionality
+        Type: Add On
 ```
 
 The root node, `Widget:` above, is required, and there can be only one node at
 this level.
 
 Directly below the root node, the only valid nodes are `Description` and
-`Fields`.  The `Description` is a plain language description of the entity.
+`Fields`.  The `Description` is a plain language description of the entity.  The `Related Entities` node includes associations to other entities, grouped by how the entity is related.
 
 ### Fields
 
@@ -89,6 +99,25 @@ These tokens can be combined, if you have a required Boolean field.
 
 If the `?` shortcut conflicts with the explicit key (e.g. a `Rad?` field with
 `Type: String`), an exception will be thrown during parsing.
+
+### Related Entities
+
+`Related Entities`, is a YAML tree that enumerates the entities with which the defined entity are associated.  They are grouped by type of relationship and include the name of the association and which type of entity that association links to.  Like `Fields`, the `*` special token can be used to mark an entity as required.
+
+* `Belongs To` is fairly straight-forward, i.e. a kitten belongs to a
+  litter of kittens
+
+* `Has One` also self-explanatory, i.e. a website user has one (and only
+  one) profile -- an inverse of `Belongs To`
+
+* `Has Many` also an inverse of `Belongs To`, but 1 or more
+
+* `Has and Belongs To Many` is a many-to-many relationship between two
+  entities, such as a dish being made up of many ingredients and an
+ingredient being part of many dishes
+
+Under each of these Association nodes the YAML tree lists entities that relate to
+the described entity in that way.
 
 ## Contributing
 
