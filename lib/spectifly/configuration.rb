@@ -1,8 +1,9 @@
 module Spectifly
   class Configuration
+    attr_accessor :entity_path
     def initialize(config = {})
-      @entity_path = config.fetch(:entity_path)
-      @presenter_path = config[:presenter_path]
+      @entity_path = config.fetch('entity_path')
+      @presenter_path = config['presenter_path']
     end
 
     def presenter_path
