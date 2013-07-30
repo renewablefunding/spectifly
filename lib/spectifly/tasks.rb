@@ -16,7 +16,7 @@ module Spectifly
     def initialize(task_name, *args, &block)
       configure!
       task task_name, *args do |task_name, task_args|
-        block.call(self) if block
+        block.call(configuration, task_args) if block
       end
     end
   end
