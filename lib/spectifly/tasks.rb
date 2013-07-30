@@ -1,15 +1,22 @@
 require 'rake'
 require 'rake/tasklib'
+require 'yaml'
+require 'spectifly/configuration'
 
 module Spectifly
   class Task < ::Rake::TaskLib
-    attr_accessor :config_path
+    attr_accessor :configuration
+
+    def configure!
+      config_path = File.join(Rake.original_dir, 'config', 'spectifly.yml')
+      config_hash = File.exist?(config_path) ? YAML.load_file(config_path) : {}
+      @configuration = Spectifly::Configuration.new(config_hash)
+    end
 
     def initialize(task_name, *args, &block)
-      @stuff = 'default stuff'
+      configure!
       task task_name, *args do |task_name, task_args|
         block.call(self) if block
-        puts "This is #{task_name} task with #{config_path}"
       end
     end
   end
