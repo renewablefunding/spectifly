@@ -1,3 +1,5 @@
+require 'spectifly/xsd'
+
 namespace :spectifly do
   namespace :xsd do
     Spectifly::Task.new('generate_from_entities', [:destination_path]) do |spectifly, args|
