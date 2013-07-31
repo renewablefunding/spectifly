@@ -30,7 +30,7 @@ describe Spectifly::Xsd::Builder do
   describe '#present_as' do
     it 'filters entity through presenter, and returns self' do
       entity = Spectifly::Entity.parse(fixture_path('individual'))
-      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual'))
+      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual/individual'))
       xsd_path = expectation_path('presented/positionless_individual', 'xsd')
       builder = Spectifly::Xsd::Builder.new(entity)
       builder.present_as(presenter_entity).should == builder
@@ -40,7 +40,7 @@ describe Spectifly::Xsd::Builder do
 
     it 'works with presented relationship-having entities' do
       entity = Spectifly::Entity.parse(fixture_path('group'))
-      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/masterless_group'))
+      presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/masterless_group/group'))
       xsd_path = expectation_path('presented/masterless_group', 'xsd')
       builder = Spectifly::Xsd::Builder.new(entity)
       builder.present_as(presenter_entity).should == builder

@@ -20,13 +20,20 @@ module Spectifly
           entities[entity.name] = entity
         end
         if presenter_path
-          presenters_glob = File.join(presenter_path, '*.entity')
-          Dir[presenters_glob].each do |path|
-            path = File.expand_path(path)
-            presenter = Spectifly::Entity.parse(path)
-            base_entity = entities[Spectifly::Support.tokenize(presenter.root)]
-            entity = base_entity.present_as(presenter)
-            entities[entity.name] = entity
+          presenters_glob = File.join(presenter_path, '*')
+          Dir[presenters_glob].each do |presenter_list_path|
+            if File.directory? presenter_list_path
+              presenter_name = presenter_list_path.sub(/^#{presenter_path}\//, '')
+              entities[presenter_name] = {}
+              entities_glob = File.join(presenter_list_path, '*.entity')
+              Dir[entities_glob].each do |path|
+                path = File.expand_path(path)
+                presenter = Spectifly::Entity.parse(path)
+                base_entity = entities[Spectifly::Support.tokenize(presenter.root)]
+                entity = base_entity.present_as(presenter)
+                entities[presenter_name][entity.name] = entity
+              end
+            end
           end
         end
         entities

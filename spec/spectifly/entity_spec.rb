@@ -17,9 +17,15 @@ describe Spectifly::Entity do
       entities = Spectifly::Entity.from_directory(
         fixture_path, :presenter_path => base_presenter_path
       )
+
       entities.keys.should =~ ['individual', 'group', 'positionless_individual', 'masterless_group']
-      entities.values.map(&:class).uniq.should == [Spectifly::Entity]
-      entities.values.map(&:name).should =~ ['individual', 'group', 'positionless_individual', 'masterless_group']
+      entities['positionless_individual'].keys.should == ['individual']
+      entities['positionless_individual'].values.map(&:name).should == ['individual']
+      entities['masterless_group'].keys.should == ['group']
+      entities['masterless_group'].values.map(&:name).should == ['group']
+      ['positionless_individual', 'masterless_group'].each do |presenter|
+        entities[presenter].values.map(&:class).uniq.should == [Spectifly::Entity]
+      end
     end
   end
 
@@ -59,17 +65,17 @@ describe Spectifly::Entity do
   describe '#name' do
     before :each do
       @presenter_entity = Spectifly::Entity.parse(
-        fixture_path('presenters/positionless_individual')
+        fixture_path('presenters/positionless_individual/individual.entity')
       )
     end
 
     it 'returns name from entity file' do
       @entity.name.should == 'individual'
-      @presenter_entity.name.should == 'positionless_individual'
+      @presenter_entity.name.should == 'individual'
     end
 
     it 'returns presenter name when presented' do
-      @entity.present_as(@presenter_entity).name.should == 'positionless_individual'
+      @entity.present_as(@presenter_entity).name.should == 'individual'
     end
   end
 
@@ -80,7 +86,7 @@ describe Spectifly::Entity do
 
     it 'returns presenter if presented' do
       @presenter_entity = Spectifly::Entity.parse(
-        fixture_path('presenters/positionless_individual')
+        fixture_path('presenters/positionless_individual/individual.entity')
       )
       @entity.present_as(@presenter_entity).presented_as.should == @presenter_entity
     end
@@ -129,7 +135,7 @@ describe Spectifly::Entity do
 
   describe '#present_as' do
     before :each do
-      @presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual'))
+      @presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual/individual'))
     end
 
     it 'raises exception if presenter entity has different root' do
