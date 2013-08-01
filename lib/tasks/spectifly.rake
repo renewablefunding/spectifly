@@ -31,10 +31,9 @@ namespace :spectifly do
     end
 
     Spectifly::Task.new('ensure_presenter_validity', [:destination_path]) do |spectifly, args|
-      # just copy all the xsds over into each presenter directory, for easy zipping and whatnot
+      # just copy all the xsds over into each directory (naively assuming all directories are presenters), for easy zipping and whatnot
       schema = Dir.glob(File.join(args[:destination_path], '*.xsd'))
-      directories = (Dir.glob(File.join(args[:destination_path], "*")) - schema)
-      directories.each do |path|
+      Dir.glob(File.join(args[:destination_path], '*/')).each do |path|
         FileUtils.cp schema, path
       end
     end
