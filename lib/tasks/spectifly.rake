@@ -30,7 +30,7 @@ namespace :spectifly do
       end
     end
 
-    Spectifly::Task.new('ensure_presenter_validity', [:destination_path]) do |spectifly, args|
+    Spectifly::Task.new('package_presenter_schemas', [:destination_path]) do |spectifly, args|
       # just copy all the xsds over into each directory (naively assuming all directories are presenters), for easy zipping and whatnot
       schema = Dir.glob(File.join(args[:destination_path], '*.xsd'))
       Dir.glob(File.join(args[:destination_path], '*/')).each do |path|
@@ -39,6 +39,6 @@ namespace :spectifly do
     end
 
     desc 'Generate all XSDs for the configured entity directory, including extended type definitions'
-    task :generate_all, [:destination_path] => [:generate_from_entities, :generate_extended_types, :ensure_presenter_validity]
+    task :generate_all, [:destination_path] => [:generate_from_entities, :generate_extended_types, :package_presenter_schemas]
   end
 end
