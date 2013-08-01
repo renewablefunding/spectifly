@@ -34,7 +34,11 @@ namespace :spectifly do
       # just copy all the xsds over into each directory (naively assuming all directories are presenters), for easy zipping and whatnot
       schema = Dir.glob(File.join(args[:destination_path], '*.xsd'))
       Dir.glob(File.join(args[:destination_path], '*/')).each do |path|
-        FileUtils.cp schema, path
+        next unless File.directory?(path)
+        schema.each do |file|
+          next if File.exist?(File.join(path, File.basename(file)))
+          FileUtils.cp file, path
+        end
       end
     end
 
