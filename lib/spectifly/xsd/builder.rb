@@ -24,6 +24,13 @@ module Spectifly
         end
       end
 
+      def types
+        [
+          fields.map(&:type) +
+          associations.select { |a| a.relationship != 'belongs_to' }.map(&:type)
+        ].flatten.compact.uniq
+      end
+
       def build(xml = nil)
         xml ||= ::Builder::XmlMarkup.new(:indent => 2)
         xml.instruct! :xml, :version => '1.0', :encoding => 'UTF-8'
@@ -34,7 +41,9 @@ module Spectifly
           unless utilized_extended_types.empty?
             xml.xs :include, 'schemaLocation' => "extended.xsd"
           end
-          xml.xs :element, :name => Spectifly::Support.camelize(root), :type => root_type
+          xml.xs :element,
+            :name => Spectifly::Support.camelize(root),
+            :type => root_type
           build_type(xml)
         end
       end

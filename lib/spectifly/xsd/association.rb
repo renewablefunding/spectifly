@@ -7,11 +7,17 @@ module Spectifly
 
       def to_xsd(builder = nil)
         builder ||= ::Builder::XmlMarkup.new(:indent => 2)
-        attributes['type'] = "#{Spectifly::Support.lower_camelize(type)}Type"
-        attributes['minOccurs'] = '0' unless required? && relationship != 'belongs_to'
+        if relationship == 'belongs_to'
+          attributes['name'] = "#{name}Id"
+          attributes['type'] = "xs:string"
+        else
+          attributes['name'] = name
+          attributes['type'] = "#{Spectifly::Support.lower_camelize(type)}Type"
+          attributes['minOccurs'] = '0' unless required?
+        end
         attributes['maxOccurs'] = 'unbounded' if multiple?
         block = embedded_block
-        builder.xs :element, { :name => name }.merge(attributes), &block
+        builder.xs :element, attributes, &block
       end
 
       def embedded_block
