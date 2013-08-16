@@ -13,8 +13,8 @@ module Spectifly
         else
           attributes['name'] = name
           attributes['type'] = "#{Spectifly::Support.lower_camelize(type)}Type"
-          attributes['minOccurs'] = '0' unless required?
         end
+        attributes['minOccurs'] = '0' unless required?
         attributes['maxOccurs'] = 'unbounded' if multiple?
         block = embedded_block
         builder.xs :element, attributes, &block

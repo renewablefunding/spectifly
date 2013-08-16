@@ -31,3 +31,7 @@ Individual:
       Party*:
         Description: Which funtime party this individual happy with is
         Type: Group
+
+      Stupid Club:
+        Description: Which stupid club this individual was manipulated into joining
+        Type: Group

@@ -5,6 +5,11 @@
         "type": "group",
         "required": true,
         "description": "Which funtime party this individual happy with is"
+      },
+      "stupid_club": {
+        "type": "group",
+        "required": false,
+        "description": "Which stupid club this individual was manipulated into joining"
       }
     },
     "name": {
