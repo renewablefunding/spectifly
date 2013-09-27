@@ -9,5 +9,6 @@ Individual:
     Pickled?:
   Related Entities:
     Belongs To:
-      Party*:
       Stupid Club:
+    Belongs To Many:
+      Parties:

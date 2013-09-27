@@ -7,7 +7,7 @@ module Spectifly
 
       def to_xsd(builder = nil)
         builder ||= ::Builder::XmlMarkup.new(:indent => 2)
-        if relationship == 'belongs_to'
+        if relationship =~ /^belongs_to(_many)?/
           attributes['name'] = "#{name}Id"
           attributes['type'] = "xs:string"
         else

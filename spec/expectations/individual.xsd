@@ -36,14 +36,19 @@
           <xs:documentation>Whether or not this individual is pickled</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="PartyId" type="xs:string">
+      <xs:element name="PoliticalPartyId" type="xs:string">
         <xs:annotation>
-          <xs:documentation>Which funtime party this individual happy with is</xs:documentation>
+          <xs:documentation>Less funtime party that aligns with this individual's ideals</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="StupidClubId" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Which stupid club this individual was manipulated into joining</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartiesId" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Which funtime party/parties this individual happy with is</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>

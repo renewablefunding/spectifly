@@ -11,7 +11,7 @@ module Spectifly
       end
 
       def multiple?
-        ['has_many', 'has_many_and_belongs_to'].include? relationship
+        ['has_many', 'has_many_and_belongs_to', 'belongs_to_many'].include? relationship
       end
     end
   end

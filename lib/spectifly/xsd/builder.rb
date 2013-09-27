@@ -27,7 +27,7 @@ module Spectifly
       def types
         [
           fields.map(&:type) +
-          associations.select { |a| a.relationship != 'belongs_to' }.map(&:type)
+          associations.select { |a| a.relationship !~ /belongs_to(_many)?/ }.map(&:type)
         ].flatten.compact.uniq
       end
 

@@ -28,10 +28,15 @@ Individual:
 
   Related Entities:
     Belongs To:
-      Party*:
-        Description: Which funtime party this individual happy with is
+      Political Party*:
+        Description: Less funtime party that aligns with this individual's ideals
         Type: Group
 
       Stupid Club:
         Description: Which stupid club this individual was manipulated into joining
+        Type: Group
+
+    Belongs To Many:
+      Parties:
+        Description: Which funtime party/parties this individual happy with is
         Type: Group

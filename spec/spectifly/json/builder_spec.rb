@@ -7,7 +7,7 @@ describe Spectifly::Json::Builder do
       entity = Spectifly::Entity.parse(fixture_path('individual'))
       json_path = expectation_path('individual', 'json')
       hash = described_class.new(entity).build
-      JSON.pretty_generate(hash).should == File.read(json_path)
+      JSON.pretty_generate(hash).strip.should == File.read(json_path).strip
     end
 
     it 'works with containing relationships' do
@@ -26,7 +26,7 @@ describe Spectifly::Json::Builder do
       builder = described_class.new(entity)
       builder.present_as(presenter_entity).should == builder
       hash = builder.build
-      JSON.pretty_generate(hash).should == File.read(json_path)
+      JSON.pretty_generate(hash).strip.should == File.read(json_path).strip
     end
 
     it 'works with overriding relationships' do

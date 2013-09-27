@@ -1,15 +1,22 @@
 {
   "individual": {
     "belongs_to": {
-      "party": {
+      "political_party": {
         "type": "group",
         "required": true,
-        "description": "Which funtime party this individual happy with is"
+        "description": "Less funtime party that aligns with this individual's ideals"
       },
       "stupid_club": {
         "type": "group",
         "required": false,
         "description": "Which stupid club this individual was manipulated into joining"
+      }
+    },
+    "belongs_to_many": {
+      "parties": {
+        "type": "group",
+        "required": false,
+        "description": "Which funtime party/parties this individual happy with is"
       }
     },
     "name": {
