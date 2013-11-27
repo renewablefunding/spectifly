@@ -25,8 +25,13 @@ namespace :spectifly do
     end
 
     Spectifly::Task.new('generate_extended_types', [:destination_path]) do |spectifly, args|
-      File.open(File.join(args[:destination_path], "extended.xsd"), 'w') do |f|
+      extended = File.join(args[:destination_path], 'extended.xsd')
+      File.open(extended, 'w') do |f|
         f.write Spectifly::Xsd::Types.build_extended
+      end
+      Dir.glob(File.join(args[:destination_path], '*/')).each do |path|
+        next unless File.directory?(path)
+        FileUtils.cp extended, path
       end
     end
 
