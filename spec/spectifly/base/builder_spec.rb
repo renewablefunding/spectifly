@@ -21,9 +21,6 @@ describe Spectifly::Base::Builder do
     it 'return an array of all non-built-in types in result' do
       entity = Spectifly::Entity.parse(fixture_path('group'))
       expect(described_class.new(entity).custom_types).to match_array(['individual'])
-      # described_class.new(entity).custom_types.should =~ [
-      #   'individual'
-      # ]
     end
   end
 end

@@ -22,12 +22,6 @@ describe Spectifly::Base::EntityNode do
       expect{
       field = described_class.new("Little Snowflake?", {"Validations" => "must be unique", "Unique" => false})
       }.to raise_error
-
-      # lambda {
-      # field = described_class.new("Little Snowflake?", {"Validations" => "must be unique", "Unique" => false})
-      # }.should raise_error
-
-
     end
   end
 end
