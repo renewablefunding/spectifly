@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Configuration do
   let(:configuration_args) {
     {
@@ -18,25 +16,30 @@ describe Spectifly::Configuration do
   end
 
   describe '#presenter_path' do
-    it 'returns configured value if set' do
-      configuration = described_class.new(
+    it 'raises an exception if configured value is set but does not exist' do
+      expect{described_class.new(
         configuration_args.merge('presenter_path' => 'goose')
-      )
-      configuration.presenter_path.should == 'goose'
+      )}.to raise_error(Spectifly::Configuration::InvalidPresenterPath)
     end
 
-    it 'returns nil if no presenter path exists at entity path' do
-      configuration = described_class.new(
+    it 'raises an exception if no default presenter path exists' do
+      expect{described_class.new(
         configuration_args.merge('entity_path' => spec_path)
+      )}.to raise_error(Spectifly::Configuration::InvalidPresenterPath)
+    end
+
+    it 'returns presenter path when passed in' do
+      configuration = described_class.new(
+        configuration_args.merge('presenter_path' => 'presenters/masterless_group')
       )
-      configuration.presenter_path.should be_nil
+      expect(configuration.presenter_path).to eq(base_presenter_path + "/masterless_group")
     end
 
     it 'returns {entity_path}/presenters if exists' do
       configuration = described_class.new(
         configuration_args
       )
-      configuration.presenter_path.should == base_presenter_path
+      expect(configuration.presenter_path).to eq(base_presenter_path)
     end
   end
 end

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Entity do
   before :each do
     @entity = Spectifly::Entity.parse(fixture_path('individual'))
@@ -8,9 +6,9 @@ describe Spectifly::Entity do
   describe '.from_directory' do
     it 'returns entities generated from files at given path' do
       entities = Spectifly::Entity.from_directory(fixture_path)
-      entities.keys.should =~ ['individual', 'group']
-      entities.values.map(&:class).uniq.should == [Spectifly::Entity]
-      entities.values.map(&:name).should =~ ['individual', 'group']
+      expect(entities.keys).to match_array(['individual', 'group'])
+      expect(entities.values.map(&:class).uniq).to eq([Spectifly::Entity])
+      expect(entities.values.map(&:name)).to match_array(['individual', 'group'])
     end
 
     it 'includes presenters if option passed' do
@@ -18,20 +16,20 @@ describe Spectifly::Entity do
         fixture_path, :presenter_path => base_presenter_path
       )
 
-      entities.keys.should =~ ['individual', 'group', 'positionless_individual', 'masterless_group']
-      entities['positionless_individual'].keys.should == ['individual']
-      entities['positionless_individual'].values.map(&:name).should == ['individual']
-      entities['masterless_group'].keys.should == ['group']
-      entities['masterless_group'].values.map(&:name).should == ['group']
+      expect(entities.keys).to match_array(['individual', 'group', 'positionless_individual', 'masterless_group'])
+      expect(entities['positionless_individual'].keys).to eq(['individual'])
+      expect(entities['positionless_individual'].values.map(&:name)).to eq(['individual'])
+      expect(entities['masterless_group'].keys).to eq(['group'])
+      expect(entities['masterless_group'].values.map(&:name)).to eq(['group'])
       ['positionless_individual', 'masterless_group'].each do |presenter|
-        entities[presenter].values.map(&:class).uniq.should == [Spectifly::Entity]
+        expect(entities[presenter].values.map(&:class).uniq).to eq([Spectifly::Entity])
       end
     end
   end
 
   describe '.parse' do
     it 'delegates to initializer' do
-      Spectifly::Entity.should_receive(:new).with(:arguments)
+      expect(Spectifly::Entity).to receive(:new).with(:arguments)
       Spectifly::Entity.parse(:arguments)
     end
   end
@@ -58,7 +56,7 @@ describe Spectifly::Entity do
 
   describe '#root' do
     it 'returns root element of parsed yaml' do
-      @entity.root.should == 'Individual'
+      expect(@entity.root).to eq('Individual')
     end
   end
 
@@ -70,39 +68,39 @@ describe Spectifly::Entity do
     end
 
     it 'returns name from entity file' do
-      @entity.name.should == 'individual'
-      @presenter_entity.name.should == 'individual'
+      expect(@entity.name).to eq('individual')
+      expect(@presenter_entity.name).to eq('individual')
     end
 
     it 'returns presenter name when presented' do
-      @entity.present_as(@presenter_entity).name.should == 'individual'
+      expect(@entity.present_as(@presenter_entity).name).to eq('individual')
     end
   end
 
   describe '#presented_as' do
     it 'returns nil if not presented' do
-      @entity.presented_as.should be_nil
+      expect(@entity.presented_as).to be_nil
     end
 
     it 'returns presenter if presented' do
       @presenter_entity = Spectifly::Entity.parse(
         fixture_path('presenters/positionless_individual/individual.entity')
       )
-      @entity.present_as(@presenter_entity).presented_as.should == @presenter_entity
+      expect(@entity.present_as(@presenter_entity).presented_as).to eq(@presenter_entity)
     end
   end
 
   describe '#metadata' do
     it 'returns metadata from parsed yaml' do
-      @entity.metadata.should == {
+      expect(@entity.metadata).to eq({
         "Description" => "An Individual"
-      }
+      })
     end
   end
 
   describe '#fields' do
     it 'returns fields from parsed yaml' do
-      @entity.fields.should == {
+      expect(@entity.fields).to eq({
         "Name*" => {
           "Description" => "The individual's name",
           "Example" => "Randy McTougherson",
@@ -129,7 +127,7 @@ describe Spectifly::Entity do
         "Pickled?*" => {
           "Description" => "Whether or not this individual is pickled"
         }
-      }
+      })
     end
   end
 
@@ -147,7 +145,7 @@ describe Spectifly::Entity do
 
     it 'uses presenter fields only, but merges metadata and field attributes' do
       @merged_entity = @entity.present_as(@presenter_entity)
-      @merged_entity.fields.should == {
+      expect(@merged_entity.fields).to eq({
         "Name*" => {
           "Description" => "The individual's name",
           "Example" => "Wussy O'Weakling",
@@ -166,17 +164,17 @@ describe Spectifly::Entity do
         "Pickled?" => {
           "Description" => "Whether or not this individual is pickled"
         }
-      }
-      @merged_entity.metadata.should == {
+      })
+      expect(@merged_entity.metadata).to eq({
         "Description" => "A Positionless Individual"
-      }
+      })
     end
   end
 
   describe '#relationships' do
     it 'returns relationships from parsed yaml' do
       @group_entity = Spectifly::Entity.parse(fixture_path('group'))
-      @group_entity.relationships.should == {
+      expect(@group_entity.relationships).to eq({
         "Has Many" => {
           "Peeps" => {
             "Description" => "Who is in the group",
@@ -189,7 +187,7 @@ describe Spectifly::Entity do
             "Type" => "Individual"
           }
         }
-      }
+      })
     end
   end
 end

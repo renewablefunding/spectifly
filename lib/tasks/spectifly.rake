@@ -8,9 +8,8 @@ namespace :spectifly do
       end
     end
 
-    Spectifly::Task.new('generate_from_entities', [:destination_path]) do |spectifly, args|
+    Spectifly::Task.new('generate_from_entities', [:destination_path, :presenter_path]) do |spectifly, args|
       options = File.exist?(spectifly.presenter_path) ? { :presenter_path => spectifly.presenter_path } : {}
-
       Spectifly::Entity.from_directory(spectifly.entity_path, options).each do |name, entity|
         if entity.is_a? Spectifly::Entity
           write_entity(entity, args[:destination_path])
@@ -24,7 +23,7 @@ namespace :spectifly do
       end
     end
 
-    Spectifly::Task.new('generate_extended_types', [:destination_path]) do |spectifly, args|
+    Spectifly::Task.new('generate_extended_types', [:destination_path, :presenter_path]) do |spectifly, args|
       extended = File.join(args[:destination_path], 'extended.xsd')
       File.open(extended, 'w') do |f|
         f.write Spectifly::Xsd::Types.build_extended
@@ -36,6 +35,6 @@ namespace :spectifly do
     end
 
     desc 'Generate all XSDs for the configured entity directory, including extended type definitions'
-    task :generate_all, [:destination_path] => [:generate_from_entities, :generate_extended_types]
+    task :generate_all, [:destination_path, :presenter_path] => [:generate_from_entities, :generate_extended_types]
   end
 end

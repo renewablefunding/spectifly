@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Json::Field do
   describe '#to_h' do
     it 'returns hash format of field' do
@@ -20,7 +18,7 @@ describe Spectifly::Json::Field do
         'Example' => 'children',
         'Validations' => ['Must be young', 'Must love eating mud']
       })
-      field.to_h.should == expected
+      expect(field.to_h).to eq(expected)
     end
   end
 end
