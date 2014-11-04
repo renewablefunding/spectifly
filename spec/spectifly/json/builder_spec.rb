@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'json'
 
 describe Spectifly::Json::Builder do

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Xsd::Field do
   describe '#regex' do
     it 'formats regex to xsd-compatible pattern restriction' do

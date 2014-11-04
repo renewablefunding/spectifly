@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Xsd::Types do
   describe '.build_extended' do
     it 'builds xsd for extended types' do

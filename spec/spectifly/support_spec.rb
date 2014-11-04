@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Support do
 
   describe '.camelize' do

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Base::Field do
   describe '#name' do
     it 'returns tokenized version of field name' do

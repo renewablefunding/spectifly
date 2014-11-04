@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Json::Field do
   describe '#to_h' do
     it 'returns hash format of field' do

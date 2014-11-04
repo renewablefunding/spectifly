@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Spectifly::Entity do
   before :each do
     @entity = Spectifly::Entity.parse(fixture_path('individual'))
@@ -31,7 +29,7 @@ describe Spectifly::Entity do
 
   describe '.parse' do
     it 'delegates to initializer' do
-      Spectifly::Entity.should_receive(:new).with(:arguments)
+      expect(Spectifly::Entity).to receive(:new).with(:arguments)
       Spectifly::Entity.parse(:arguments)
     end
   end
