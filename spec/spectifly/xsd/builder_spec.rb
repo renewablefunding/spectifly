@@ -6,7 +6,7 @@ describe Spectifly::Xsd::Builder do
       path_builder = Spectifly::Xsd::Builder.from_path(fixture_path('individual'))
       xsd_path = expectation_path('individual', 'xsd')
       xsd = path_builder.build
-      xsd.should == File.read(xsd_path)
+      expect(xsd).to eq(File.read(xsd_path))
     end
   end
 
@@ -15,14 +15,14 @@ describe Spectifly::Xsd::Builder do
       entity = Spectifly::Entity.parse(fixture_path('individual'))
       xsd_path = expectation_path('individual', 'xsd')
       xsd = Spectifly::Xsd::Builder.new(entity).build
-      xsd.should == File.read(xsd_path)
+      expect(xsd).to eq(File.read(xsd_path))
     end
 
     it 'includes import directives for custom field types' do
       entity = Spectifly::Entity.parse(fixture_path('group'))
       xsd_path = expectation_path('group', 'xsd')
       xsd = Spectifly::Xsd::Builder.new(entity).build
-      xsd.should == File.read(xsd_path)
+      expect(xsd).to eq(File.read(xsd_path))
     end
   end
 
@@ -32,9 +32,9 @@ describe Spectifly::Xsd::Builder do
       presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/positionless_individual/individual'))
       xsd_path = expectation_path('presented/positionless_individual', 'xsd')
       builder = Spectifly::Xsd::Builder.new(entity)
-      builder.present_as(presenter_entity).should == builder
+      expect(builder.present_as(presenter_entity)).to eq(builder)
       xsd = builder.build
-      xsd.should == File.read(xsd_path)
+      expect(xsd).to eq(File.read(xsd_path))
     end
 
     it 'works with presented relationship-having entities' do
@@ -42,9 +42,9 @@ describe Spectifly::Xsd::Builder do
       presenter_entity = Spectifly::Entity.parse(fixture_path('presenters/masterless_group/group'))
       xsd_path = expectation_path('presented/masterless_group', 'xsd')
       builder = Spectifly::Xsd::Builder.new(entity)
-      builder.present_as(presenter_entity).should == builder
+      expect(builder.present_as(presenter_entity)).to eq(builder)
       xsd = builder.build
-      xsd.should == File.read(xsd_path)
+      expect(xsd).to eq(File.read(xsd_path))
     end
   end
 end

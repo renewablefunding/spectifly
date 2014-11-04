@@ -3,7 +3,7 @@ describe Spectifly::Xsd::Types do
     it 'builds xsd for extended types' do
       expected_path = expectation_path('extended', 'xsd')
       expected = File.read(expected_path)
-      Spectifly::Xsd::Types.build_extended.should == expected
+      expect(Spectifly::Xsd::Types.build_extended).to eq(expected)
     end
   end
 end

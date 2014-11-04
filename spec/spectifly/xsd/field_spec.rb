@@ -4,7 +4,7 @@ describe Spectifly::Xsd::Field do
       field = Spectifly::Xsd::Field.new('some field', {
         'Validations' => 'Must match regex "^[0-9]{4}"'
       })
-      field.regex.should == '[0-9]{4}[\s\S]*'
+      expect(field.regex).to eq('[0-9]{4}[\s\S]*')
     end
   end
 end

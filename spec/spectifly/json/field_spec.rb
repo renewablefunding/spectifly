@@ -18,7 +18,7 @@ describe Spectifly::Json::Field do
         'Example' => 'children',
         'Validations' => ['Must be young', 'Must love eating mud']
       })
-      field.to_h.should == expected
+      expect(field.to_h).to eq(expected)
     end
   end
 end

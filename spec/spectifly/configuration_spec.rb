@@ -32,14 +32,14 @@ describe Spectifly::Configuration do
       configuration = described_class.new(
         configuration_args.merge('presenter_path' => 'presenters/masterless_group')
       )
-      configuration.presenter_path.should == base_presenter_path + "/masterless_group"
+      expect(configuration.presenter_path).to eq(base_presenter_path + "/masterless_group")
     end
 
     it 'returns {entity_path}/presenters if exists' do
       configuration = described_class.new(
         configuration_args
       )
-      configuration.presenter_path.should == base_presenter_path
+      expect(configuration.presenter_path).to eq(base_presenter_path)
     end
   end
 end
